@@ -14,7 +14,7 @@
             padding: 0;
         }
         header {
-            background-color: #007BFF; /* اللون الأزرق */
+            background-color: #007BFF; /* لون أزرق ملون */
             color: white;
             padding: 10px 0;
             text-align: center;
@@ -74,7 +74,7 @@
 <body>
 
     <header>
-        <h1 id="header-title">تسجيل دخول</h1> <!-- سيتم تحديثه بناءً على الصفحة -->
+        <h1>Future Coders - <span id="header-title">تسجيل دخول</span></h1>
     </header>
 
     <!-- Login Page -->
@@ -86,12 +86,16 @@
             <label for="login-password">كلمة المرور</label>
             <input type="password" id="login-password" name="login-password" placeholder="أدخل كلمة المرور" required>
 
+            <!-- Google reCAPTCHA for Login -->
+            <div class="g-recaptcha" data-sitekey="6Lclm2YqAAAAAG9PO0778aGohl8_vvGl7c3SMImM"></div>
+            <br>
+            
             <div class="form-actions">
                 <button type="button" id="login-submit">تسجيل دخول</button>
             </div>
         </form>
         <p>ليس لديك حساب؟ <a href="#" id="go-to-register">إنشاء حساب</a></p>
-        <div class="error-message" id="login-error">بيانات اعتماد غير صحيحة</div>
+        <div class="error-message" id="login-error">بيانات الاعتماد غير صحيحة</div>
     </section>
 
     <!-- Registration Page -->
@@ -102,15 +106,19 @@
             <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
             <label for="first-name">الاسم الأول</label>
             <input type="text" id="first-name" name="first-name" placeholder="أدخل اسمك الأول" required>
-            <label for="last-name">اسم العائلة</label>
-            <input type="text" id="last-name" name="last-name" placeholder="أدخل اسم عائلتك" required>
+            <label for="last-name">الاسم الأخير</label>
+            <input type="text" id="last-name" name="last-name" placeholder="أدخل اسمك الأخير" required>
             <label for="department">القسم</label>
             <input type="text" id="department" name="department" placeholder="أدخل قسمك" required>
             <label for="password">كلمة المرور</label>
             <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required>
             <label for="confirm-password">تأكيد كلمة المرور</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="أكد كلمة المرور" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="تأكيد كلمة المرور" required>
 
+            <!-- Google reCAPTCHA for Registration -->
+            <div class="g-recaptcha" data-sitekey="6Lclm2YqAAAAAG9PO0778aGohl8_vvGl7c3SMImM"></div>
+            <br>
+            
             <div class="form-actions">
                 <button type="button" id="register-submit">إنشاء حساب</button>
             </div>
@@ -121,7 +129,7 @@
     <!-- صفحة نادي المستقبل للمبرمجين -->
     <section class="section hidden" id="club-section">
         <header>
-            <h1>Future Coders</h1>
+            <h1>نادي المبرمجين</h1>
         </header>
         <section>
             <h2>نبذة عن نادي المبرمجين</h2>
@@ -165,26 +173,21 @@
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // توكن البوت
-        const chatId = "6919240425"; // معرف الدردشة
-
-        // تغيير عنوان الرأس بناءً على الصفحة المعروضة
-        function updateHeaderTitle(title) {
-            document.getElementById('header-title').textContent = title;
-        }
+        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // Bot token
+        const chatId = "6919240425"; // Chat ID
 
         // Navigate between sections
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
             document.getElementById(sectionId).classList.remove('hidden');
-            // تحديث عنوان الرأس
-            if (sectionId === 'login-section') {
-                updateHeaderTitle('تسجيل دخول');
-            } else if (sectionId === 'register-section') {
-                updateHeaderTitle('إنشاء حساب');
-            } else if (sectionId === 'club-section') {
-                updateHeaderTitle('Future Coders');
-            }
+
+            // Update the header title based on the section
+            const headerTitle = {
+                'login-section': 'تسجيل دخول',
+                'register-section': 'إنشاء حساب',
+                'club-section': 'Future Coders'
+            };
+            document.getElementById('header-title').textContent = headerTitle[sectionId];
         }
 
         // Login
@@ -214,7 +217,7 @@
             const confirmPassword = document.getElementById('confirm-password').value;
 
             if (password !== confirmPassword) {
-                document.getElementById('register-error').textContent = 'كلمات المرور لا تتطابق';
+                document.getElementById('register-error').textContent = 'كلمات المرور غير متطابقة';
                 document.getElementById('register-error').style.display = 'block';
                 return;
             }
