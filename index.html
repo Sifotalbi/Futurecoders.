@@ -19,9 +19,6 @@
             padding: 10px 0;
             text-align: center;
         }
-        header h1 {
-            margin: 0;
-        }
         h2 {
             color: red;
         }
@@ -114,7 +111,7 @@
 <body>
 
     <header>
-        <h1>Future Coders - <span id="header-title">تسجيل دخول</span></h1>
+        <h1> <span id="header-title">تسجيل دخول </span></h1>
     </header>
 
     <!-- Login Page -->
@@ -137,8 +134,14 @@
         <p>ليس لديك حساب؟ <a href="#" id="go-to-register">إنشاء حساب</a></p>
         <div class="error-message" id="login-error">بيانات الاعتماد غير صحيحة</div>
     </section>
+    
 
+    
     <!-- Registration Page -->
+
+
+</header>
+
     <section class="section" id="register-section">
         <h2>إنشاء حساب</h2>
         <form id="register-form">
@@ -166,20 +169,22 @@
         <div class="error-message" id="register-error"></div>
     </section>
 
-    <!-- صفحة نادي المستقبل للمبرمجين -->
+    <!-- Home page -->
     <section class="section" id="club-section">
         <header>
-            <h1>نادي المبرمجين</h1>
+            <h1>FUTURE CODERS</h1>
         </header>
         <section>
-            <h2>نبذة عن نادي المبرمجين</h2>
-            <p>نادي المبرمجين هو مجتمع يهدف إلى تعزيز مهارات البرمجة وتبادل المعرفة بين الأعضاء.</p>
+            <h2>نبذة عن نادي FUTURE CODERS</h2>
+            <p>نادي FUTURE CODERS هو مجتمع يهدف إلى تعزيز مهارات البرمجة وتبادل المعرفة بين الأعضاء.</p>
             <div class="menu-icon" onclick="toggleSidebar()">☰</div>
         </section>
         <section>
             <h2>المشرفون</h2>
-            <p>المشرف: محمد علي</p>
-            <p>المشرف: سارة أحمد</p>
+            <p>المشرف:  طالبي سيف الدين</p>
+            <p>المشرف:  طرودي أمير</p>
+            <p>المشرف:  حايف إبراهيم</p>
+            <p>المشرف:  حايف مهند</p>
         </section>
         <section>
             <h2>خارطة الطريق</h2>
@@ -250,12 +255,14 @@
         function showProgrammingTools() {
             hideSidebar();
             showSection('programming-tools-section');
+            document.getElementById('header-title').textContent = 'أدوات البرمجة'; // تحديث عنوان الصفحة
         }
 
         // Show design tools page
         function showDesignTools() {
             hideSidebar();
             showSection('design-tools-section');
+            document.getElementById('header-title').textContent = 'أدوات التصميم'; // تحديث عنوان الصفحة
         }
 
         // Navigate between sections
@@ -350,3 +357,4 @@
     </script>
 </body>
 </html>
+
