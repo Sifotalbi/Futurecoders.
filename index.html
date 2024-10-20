@@ -220,13 +220,13 @@
     </section>
 
     <!-- أدوات البرمجة -->
-    <section class="new-section" id="programming-tools-section">
+    <section class="new-section hidden" id="programming-tools-section">
         <h2 style="color: blue;">أدوات البرمجة</h2>
         <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
     </section>
 
     <!-- أدوات التصميم -->
-    <section class="new-section" id="design-tools-section">
+    <section class="new-section hidden" id="design-tools-section">
         <h2 style="color: blue;">أدوات التصميم</h2>
         <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
     </section>
@@ -262,8 +262,8 @@
         // Navigate between sections
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
-            document.querySelectorAll('.new-section').forEach(section => section.style.display = 'none'); // Hide new sections
-            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
+            document.querySelectorAll('.new-section').forEach(section => section.classList.add('hidden')); // Hide new sections
+            document.getElementById(sectionId).classList.remove('hidden'); // Show the selected section
         }
 
         // Login
