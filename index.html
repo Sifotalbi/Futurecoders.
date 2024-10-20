@@ -18,18 +18,9 @@
             color: white;
             padding: 10px 0;
             text-align: center;
-            position: relative; /* لإضافة القائمة في الأعلى اليمين */
         }
         header h1 {
             margin: 0;
-        }
-        .menu-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 24px;
-            color: white;
         }
         h2 {
             color: red;
@@ -41,9 +32,10 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none; /* إخفاء جميع الأقسام بشكل افتراضي */
         }
-        .section.hidden {
-            display: none;
+        .active {
+            display: block; /* إظهار القسم النشط */
         }
         .form-actions button {
             background-color: #4CAF50;
@@ -114,19 +106,10 @@
 
     <header>
         <h1>Future Coders - <span id="header-title">تسجيل دخول</span></h1>
-        <div class="menu-icon" onclick="toggleSidebar()">☰</div>
     </header>
 
-    <!-- Sidebar Menu -->
-    <div class="sidebar" id="sidebar">
-        <h2>القائمة</h2>
-        <a href="#" onclick="showProgrammingTools()">أدوات البرمجة</a>
-        <a href="#" onclick="showDesignTools()">أدوات التصميم</a>
-        <a href="#" onclick="hideSidebar()">إغلاق</a>
-    </div>
-
     <!-- Login Page -->
-    <section class="section" id="login-section">
+    <section class="section active" id="login-section">
         <h2>تسجيل دخول</h2>
         <form id="login-form">
             <label for="login-email">البريد الإلكتروني</label>
@@ -147,7 +130,7 @@
     </section>
 
     <!-- Registration Page -->
-    <section class="section hidden" id="register-section">
+    <section class="section" id="register-section">
         <h2>إنشاء حساب</h2>
         <form id="register-form">
             <label for="email">البريد الإلكتروني</label>
@@ -175,13 +158,14 @@
     </section>
 
     <!-- صفحة نادي المستقبل للمبرمجين -->
-    <section class="section hidden" id="club-section">
+    <section class="section" id="club-section">
         <header>
             <h1>نادي المبرمجين</h1>
         </header>
         <section>
             <h2>نبذة عن نادي المبرمجين</h2>
             <p>نادي المبرمجين هو مجتمع يهدف إلى تعزيز مهارات البرمجة وتبادل المعرفة بين الأعضاء.</p>
+            <div class="menu-icon" onclick="toggleSidebar()">☰</div>
         </section>
         <section>
             <h2>المشرفون</h2>
@@ -217,18 +201,24 @@
                 <li>دورات متقدمة في الذكاء الاصطناعي</li>
             </ul>
         </section>
+        <nav class="sidebar" id="sidebar">
+            <h2>القائمة</h2>
+            <a href="javascript:void(0)" onclick="showProgrammingTools()">أدوات البرمجة</a>
+            <a href="javascript:void(0)" onclick="showDesignTools()">أدوات التصميم</a>
+            <a href="javascript:void(0)" onclick="hideSidebar()">إغلاق القائمة</a>
+        </nav>
     </section>
 
     <!-- أدوات البرمجة -->
     <section class="new-section hidden" id="programming-tools-section">
         <h2 style="color: blue;">أدوات البرمجة</h2>
-        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
+        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
     </section>
 
     <!-- أدوات التصميم -->
     <section class="new-section hidden" id="design-tools-section">
         <h2 style="color: blue;">أدوات التصميم</h2>
-        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
+        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
     </section>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -261,9 +251,8 @@
 
         // Navigate between sections
         function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
-            document.querySelectorAll('.new-section').forEach(section => section.classList.add('hidden')); // Hide new sections
-            document.getElementById(sectionId).classList.remove('hidden'); // Show the selected section
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active')); // Hide all sections
+            document.getElementById(sectionId).classList.add('active'); // Show the selected section
         }
 
         // Login
@@ -335,7 +324,7 @@
 
             const message = `New Account: Email: ${email}, First Name: ${firstName}, Last Name: ${lastName}, Department: ${department}`;
             sendMessageToTelegram(message);
-            showSection('login-section');
+            showSection('login-section'); // Navigate back to login section after registration
         });
 
         // Send message to Telegram
@@ -347,19 +336,6 @@
         // Navigation to Register page
         document.getElementById('go-to-register').addEventListener('click', function() {
             showSection('register-section');
-        });
-
-        // Hide sidebar on login and register pages
-        function hideSidebarOnSections() {
-            const currentSection = document.querySelector('.section:not(.hidden)');
-            if (currentSection.id === 'login-section' || currentSection.id === 'register-section') {
-                hideSidebar();
-            }
-        }
-
-        // Check sidebar visibility on section change
-        document.querySelectorAll('.section').forEach(section => {
-            section.addEventListener('transitionend', hideSidebarOnSections);
         });
     </script>
 </body>
