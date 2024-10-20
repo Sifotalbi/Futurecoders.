@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -286,6 +286,7 @@
                 sendMessageToTelegram(message);
                 showSection('club-section'); // Navigate to Coders Club page
                 document.getElementById('header-title').textContent = 'نادي المبرمجين'; // Update header title
+                hideSidebar(); // Hide sidebar when navigating to club section
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
