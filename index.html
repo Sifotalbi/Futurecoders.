@@ -100,6 +100,15 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        /* زر القائمة */
+        .menu-icon {
+            cursor: pointer;
+            font-size: 24px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1001;
+        }
     </style>
 </head>
 <body>
@@ -205,20 +214,20 @@
             <h2>القائمة</h2>
             <a href="javascript:void(0)" onclick="showProgrammingTools()">أدوات البرمجة</a>
             <a href="javascript:void(0)" onclick="showDesignTools()">أدوات التصميم</a>
-            <a href="javascript:void(0)" onclick="hideSidebar()">إغلاق القائمة</a>
+            <a href="javascript:void(0)" onclick="hideSidebar()">إغلاق</a>
         </nav>
-    </section>
 
-    <!-- أدوات البرمجة -->
-    <section class="new-section hidden" id="programming-tools-section">
-        <h2 style="color: blue;">أدوات البرمجة</h2>
-        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
-    </section>
+        <!-- أدوات البرمجة -->
+        <section class="new-section" id="programming-tools-section">
+            <h2 style="color: blue;">أدوات البرمجة</h2>
+            <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
+        </section>
 
-    <!-- أدوات التصميم -->
-    <section class="new-section hidden" id="design-tools-section">
-        <h2 style="color: blue;">أدوات التصميم</h2>
-        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
+        <!-- أدوات التصميم -->
+        <section class="new-section" id="design-tools-section">
+            <h2 style="color: blue;">أدوات التصميم</h2>
+            <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
+        </section>
     </section>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -252,7 +261,8 @@
         // Navigate between sections
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => section.classList.remove('active')); // Hide all sections
-            document.getElementById(sectionId).classList.add('active'); // Show the selected section
+            document.querySelectorAll('.new-section').forEach(section => section.style.display = 'none'); // Hide all new sections
+            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
         }
 
         // Login
