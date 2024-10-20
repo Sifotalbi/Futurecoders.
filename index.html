@@ -196,6 +196,13 @@
             const loginPassword = document.getElementById('login-password').value;
             const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
 
+            // Check if email and password fields are filled
+            if (!loginEmail || !loginPassword) {
+                document.getElementById('login-error').textContent = 'يرجى ملء جميع الحقول';
+                document.getElementById('login-error').style.display = 'block';
+                return;
+            }
+
             const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
 
             if (user) {
@@ -216,6 +223,28 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
 
+            // Check if all fields are filled
+            if (!email || !firstName || !lastName || !department || !password || !confirmPassword) {
+                document.getElementById('register-error').textContent = 'يرجى ملء جميع الحقول';
+                document.getElementById('register-error').style.display = 'block';
+                return;
+            }
+
+            // Check if email ends with @gmail.com
+            if (!email.endsWith('@gmail.com')) {
+                document.getElementById('register-error').textContent = 'يجب أن يكون البريد الإلكتروني من نوع @gmail.com';
+                document.getElementById('register-error').style.display = 'block';
+                return;
+            }
+
+            // Check password length
+            if (password.length < 8) {
+                document.getElementById('register-error').textContent = 'يجب أن تكون كلمة المرور مكونة من 8 عناصر على الأقل';
+                document.getElementById('register-error').style.display = 'block';
+                return;
+            }
+
+            // Check if passwords match
             if (password !== confirmPassword) {
                 document.getElementById('register-error').textContent = 'كلمات المرور غير متطابقة';
                 document.getElementById('register-error').style.display = 'block';
